@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Purchase List</title>
+</head>
+<body>
+    <h1>Data Transaksi</h1>
+    <ul>
+    {% for record in records %}
+        <li>{{ record.city }} - {{ record.transaction_date }} - Rp{{ record.total_amount }}</li>
+    {% endfor %}
+    </ul>
+        <a href="{% url 'sales_by_city' %}">📍 Lihat Penjualan per Kota</a>
+</body>
+</html>

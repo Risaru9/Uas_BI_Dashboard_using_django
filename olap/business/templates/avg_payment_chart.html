@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Rata-rata Penjualan per Metode Pembayaran</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 40px;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: #ecf0f1;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            border-radius: 18px;
+            backdrop-filter: blur(8px);
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 24px;
+            color: #ffffff;
+            margin-bottom: 30px;
+        }
+
+        .back-link {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .back-link a {
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #16a085;
+            color: #ffffff;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-link a:hover {
+            background-color: #138d75;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>💳 Rata-rata Penjualan per Metode Pembayaran</h2>
+        <canvas id="avgChart" height="120"></canvas>
+
+        <div class="back-link">
+            <a href="/">← Kembali ke Halaman Utama</a>
+        </div>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('avgChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: {{ labels|safe }},
+                datasets: [{
+                    label: 'Rata-rata Penjualan (Rp)',
+                    data: {{ values|safe }},
+                    backgroundColor: [
+                        '#00cec9', '#ffeaa7', '#fab1a0', '#74b9ff', '#a29bfe'
+                    ],
+                    borderColor: '#dfe6e9',
+                    borderWidth: 1.5,
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#ecf0f1',
+                            font: {
+                                size: 14
+                            }
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: '#2c3e50',
+                        titleColor: '#ffffff',
+                        bodyColor: '#ecf0f1'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        min: 0,
+                        max: 20000000,  
+                        ticks: {
+                            stepSize: 1000000,  // setiap 1 juta
+                            color: '#bdc3c7',
+                            callback: function(value) {
+                                return 'Rp' + (value);
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(255,255,255,0.1)'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#bdc3c7'
+                        },
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

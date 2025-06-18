@@ -1,0 +1,6 @@
+shipping_method,shipping_method_id
+Tiki,1
+JNE,3
+GrabExpress,5
+POS Indonesia,6
+GoSend,11
